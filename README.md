@@ -112,4 +112,19 @@ Generated dataset samples include:
 
 -- Structured architectural design proposals with context
 
+## ⚠️ Notes & Tips
+
+-- Use dry-run mode first to validate the pipeline without cost.
+
+-- Choose reasonable chunk limits for large repositories.
+
+
+
+
+
+
+
+
+
+
 These samples can be used directly for supervised fine-tuning of LLMs.
