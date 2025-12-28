@@ -70,7 +70,14 @@ Install dependencies using:
 ```bash
 pip install -r requirements.txt
 ```
-
+### Running the Generator
+## Scenario 1 — Business Q&A Generation
+```bash
+# Dry-run (simulation, no API calls)
+python3 main.py scene1 --limit 5 --dry-run
+# Actual generation
+python3 main.py scene1 --limit 100 --qa-count 3
+```
 
 
 
