@@ -1,10 +1,13 @@
 # interview_homework
 Codebase Data Factory
 
-A framework for automatically generating high-quality training datasets from real software projects — including
-code understanding (Q&A) and system design (architecture reasoning).
+A framework for automatically generating high-quality training datasets from real software projects — including:
 
-This repository builds a pipeline that:
+Code Understanding (Q&A)
+
+System Design / Architecture Reasoning
+
+The pipeline:
 
 Analyzes an existing codebase
 
@@ -12,32 +15,36 @@ Extracts structure and code snippets
 
 Prompts an LLM to generate realistic tasks
 
-Produces structured training datasets suitable for SFT (Supervised Fine-Tuning)
+Outputs structured datasets suitable for SFT (Supervised Fine-Tuning)
 
 ✨ Features
 
-✔ Automatically analyze any local or open-source repository
-✔ Generate two training scenarios:
+✔ Analyze any local or open-source repository
 
-1️⃣ Scene-1: Code Q&A (understanding, reasoning, business context)
-2️⃣ Scene-2: System design (architecture planning, explanation, trace)
+✔ Two realistic scenarios
 
-✔ Structured JSONL dataset outputs
-✔ DRY-RUN mode (no LLM required for testing)
-✔ Extensible and modular framework
+Scene-1: Code Q&A (understanding + reasoning)
+
+Scene-2: System design + architecture planning
+
+✔ JSONL datasets for training
+
+✔ DRY-RUN testing mode (no LLM required)
+
+✔ Modular and extendable
 
 📂 Project Structure
 code_data_factory/
- ├── analyzer.py          # Analyze repository, build skeleton, extract chunks
+ ├── analyzer.py          # Analyze repository, extract structure + code chunks
  ├── scene1_pipeline.py   # Generate Code Q&A dataset
  ├── scene2_pipeline.py   # Generate System Design dataset
- ├── postprocess.py       # Clean and merge data into final SFT format
- ├── llm_client.py        # Wrapper for local/HF/OpenAI models
- ├── config.py            # Global configuration
- └── cli.py               # Command line entrypoint
+ ├── postprocess.py       # Clean + merge into final SFT dataset
+ ├── llm_client.py        # Wrapper for local / HF / OpenAI models
+ ├── config.py            # Configuration settings
+ └── cli.py               # Command-line interface
 
 
-Generated data is stored under:
+Generated data appears under:
 
 data/
  ├── project_skeleton.txt
@@ -57,7 +64,7 @@ git clone YOUR_REPO_URL
 cd codebase-data-factory
 
 
-Create virtual environment:
+Create a virtual environment:
 
 python -m venv .venv
 source .venv/bin/activate        # Windows: .venv\Scripts\activate
@@ -65,9 +72,7 @@ pip install -r requirements.txt
 
 🎯 Select a Target Codebase
 
-Clone any public project (or your own project):
-
-Example:
+Clone any project you want to analyze, for example:
 
 git clone https://github.com/halo-dev/halo.git halo-main
 
@@ -81,68 +86,73 @@ Windows PowerShell:
 
 setx TARGET_REPO_PATH "C:\path\to\halo-main"
 
-🧪 DRY-RUN Mode (recommended first)
+🧪 DRY-RUN Mode (Recommended First)
 
-Run the full pipeline without calling any real LLM:
+Run everything without calling an actual LLM:
 
 export DRY_RUN=1
 
 
-This allows you to test pipeline logic safely.
+This tests pipeline logic safely.
 
 🚀 Usage
-Step 1 — Analyze repository
+1️⃣ Analyze repository
 python main.py analyze
 
-Step 2 — Generate Scene-1 (Code Q&A)
+2️⃣ Generate Scene-1 (Code Q&A)
 python main.py scene1 --limit 20 --qa-count 3 --dry-run
 
-Step 3 — Generate Scene-2 (System Design)
+3️⃣ Generate Scene-2 (System Design)
 python main.py scene2 --count 5 --dry-run
 
-Step 4 — Post-process and merge datasets
+4️⃣ Post-process and merge datasets
 python main.py postprocess
 
-🤖 Using a real LLM (optional)
-Option A — HuggingFace local model
-
-In environment:
-
+🤖 Using a Real LLM (Optional)
+Option A — HuggingFace Local Model
 export DRY_RUN=0
 export HF_MODEL_NAME="Qwen/Qwen2.5-7B-Instruct"
 
-Option B — OpenAI-compatible API
+Option B — OpenAI-Compatible API
 export DRY_RUN=0
 export USE_OPENAI=1
 export OPENAI_API_KEY=YOUR_KEY
 
 📌 Output Overview
-
-This project automatically produces:
-
 File	Description
-project_skeleton.*	Compact representation of project structure
+project_skeleton.*	Compressed view of project structure
 chunks.json	Extracted code segments
-scene1_raw.jsonl	Raw Q&A generation
-scene1_sft.jsonl	Cleaned SFT dataset (Scene-1)
-scene2_raw.jsonl	Raw design outputs
-scene2_sft.jsonl	Cleaned SFT dataset (Scene-2)
+scene1_raw.jsonl	Raw Q&A responses
+scene1_sft.jsonl	Cleaned dataset for Scene-1
+scene2_raw.jsonl	Raw architecture designs
+scene2_sft.jsonl	Cleaned dataset for Scene-2
 combined_sft.jsonl	Final merged dataset
-✅ Assignment Alignment
+✅ Why This Project Matters
 
-This project satisfies:
+This pipeline demonstrates:
 
-✔ Two real scenarios (Q&A + architecture design)
-✔ Automated training-data pipeline
-✔ Reusable, extensible design
-✔ Works on open-source or private repositories
-✔ Produces reasoning + explanation traces
-✔ Includes dry-run validation capability
+automated dataset creation
 
-👀 Notes
+support for multiple training tasks
 
-Large repositories may take longer to scan
+realistic development scenarios
 
-Avoid scanning folders like node_modules, build, .git
+structured, reusable design
 
-Always test with DRY_RUN first
+explainable outputs (thinking traces included)
+
+ability to run without a model first (dry-run)
+
+⚠️ Notes
+
+Large repositories may take time to process
+
+Avoid scanning folders like:
+
+node_modules
+build
+dist
+.git
+
+
+Always test using DRY_RUN first
