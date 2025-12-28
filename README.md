@@ -100,5 +100,6 @@ data/
 ├── project_skeleton.json
 └── chunks.json
 ```
+The final training dataset combined_sft.jsonl contains both Scene-1 and Scene-2 samples.
 
 
