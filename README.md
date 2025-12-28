@@ -79,8 +79,16 @@ python3 main.py scene1 --limit 5 --dry-run
 python3 main.py scene1 --limit 100 --qa-count 3
 ```
 
+## Scenario 2 — Architectural Design Generation
+```bash
+# Dry-run
+python3 main.py scene2 --count 2 --dry-run
 
-
+# Actual generation
+python3 main.py scene2 --count 50
+```
+## 📁 Output Directory
+Generated files are saved under:
 
 
 
